@@ -1,0 +1,36 @@
+{% extends "homepage.html" %}
+
+
+{% block body %}
+{% include "navbar.html" %}
+
+  <body>
+    <div class="container">
+
+      <style>
+      .video-custom {
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      </style>
+
+      <div class="conteudo">
+        {% for foto in fotos %}
+          <a href="{{ url_for('perfil', id_usuario=foto.id_usuario) }}" class="bloco-imagem">
+            <div class="bloco-imagem">
+              {% if foto.imagem.endswith('.mp4') or foto.imagem.endswith('.webm') %}
+                <video class="video-custom" autoplay muted loop>
+                  <source src="{{ url_for('download_file', filename=foto.imagem) }}" type="video/mp4">
+                </video>
+              {% else %}
+                <img src="{{ url_for('download_file', filename=foto.imagem) }}">
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+    </div>
+  </body>
+
+{% endblock %}
